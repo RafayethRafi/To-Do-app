@@ -41,9 +41,13 @@ addBtn.onclick = function () {
         p.innerHTML = item.do;
         statBtn.innerHTML = "To-Do";
         statBtn.style.backgroundColor = "yellow";
+        statBtn.classList.add("statB");
+        console.dir(statBtn);
+        dltBtn.classList.add("dltB");
 
         dltBtn.innerHTML = "Delete"
         dltBtn.style.backgroundColor = "red";
+
 
         div.appendChild(p);
         div.appendChild(statBtn);
@@ -61,6 +65,16 @@ addBtn.onclick = function () {
 
         localStorage.setItem("itemNum", JSON.stringify(k));
 
+        statBtn.onclick = function () {
+
+            stat(item, statBtn, itemKey)
+        }
+
+        dltBtn.onclick = function () {
+            dlt(div, itemKey);
+        }
+
+
     }
 };
 
@@ -77,6 +91,9 @@ for (let i = 0; i <= k; i++) {
         const p = document.createElement("p");
         let statBtn = document.createElement("button");
         let dltBtn = document.createElement("button");
+
+        statBtn.classList.add("statB");
+        dltBtn.classList.add("dltB");
 
 
         p.innerHTML = data.do;
@@ -106,29 +123,37 @@ for (let i = 0; i <= k; i++) {
 
 
         dltBtn.onclick = function () {
-            div.innerHTML = "";
-            localStorage.removeItem(itemKey)
+            dlt(div, itemKey);
         }
 
         statBtn.onclick = function () {
 
             const data = JSON.parse(localStorage.getItem(itemKey));
 
-            if (data.state === "0") {
-                statBtn.innerHTML = "Doing";
-                statBtn.style.backgroundColor = "orange";
-                data.state = "1";
-                localStorage.setItem(itemKey, JSON.stringify(data));
-            }
-            else if (data.state === "1") {
-                statBtn.innerHTML = "Done";
-                statBtn.style.backgroundColor = "green";
-                data.state = "2";
-                localStorage.setItem(itemKey, JSON.stringify(data));
-            }
+            stat(data, statBtn, itemKey)
         }
     }
 }
 
 
+function stat(data, statBtn, itemKey) {
 
+    if (data.state === "0") {
+        statBtn.innerHTML = "Doing";
+        statBtn.style.backgroundColor = "orange";
+        data.state = "1";
+        localStorage.setItem(itemKey, JSON.stringify(data));
+    }
+    else if (data.state === "1") {
+        statBtn.innerHTML = "Done";
+        statBtn.style.backgroundColor = "green";
+        data.state = "2";
+        localStorage.setItem(itemKey, JSON.stringify(data));
+    }
+}
+
+
+function dlt(div, itemKey) {
+    div.innerHTML = "";
+    localStorage.removeItem(itemKey)
+}

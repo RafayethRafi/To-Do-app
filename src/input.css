@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.statB {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 1rem;
+    margin: 5px;
+    font-weight: bold;
+}
+
+.dltB {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 1rem;
+    margin: 5px;
+    font-weight: bold;
+}
